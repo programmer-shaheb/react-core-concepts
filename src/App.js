@@ -1,48 +1,50 @@
 import logo from "./logo.svg";
 import "./App.css";
+import { useState } from "react";
 
-function Welcome(props) {
-  return (
-    <div>
-      <h1>Hello,{props.name}</h1>
-    </div>
-  );
-}
-
-function Avatar(props) {
-  return (
-    <img
-      src="{props.user.avatarUrl}"
-      alt="{props.user.name}"
-      className="Avatar"
-    />
-  );
-}
-
-function UserInfo(props) {
-  return (
-    <div className="UserInfo">
-      <Avatar user={props.author} />
-      <div className="UserInfo-name">{props.author.name}</div>
-    </div>
-  );
-}
-
-function Comment(props) {
-  return (
-    <div className="Comment">
-      <UserInfo user={props.author} />
-      <div className="Comment-text">{props.text}</div>
-      <div className="Comment-date">{props.date}</div>
-    </div>
-  );
-}
+const artists = ["Razzak", "Anwar", "Joshim"];
 
 function App() {
   return (
     <div>
-      <Welcome name="Akash"></Welcome>
-      <Comment author="Abidur" text="Read The Book" date={new Date()}></Comment>
+      <MovieCounter />
+      {artists.map((artist) => {
+        return <Nayok artistName={artist} />;
+      })}
+    </div>
+  );
+}
+
+function MovieCounter() {
+  const [count, setCount] = useState(0);
+
+  const handleClickPlus = () => setCount(count + 1);
+  const handleClickMinus = () => setCount(count - 1);
+
+  return (
+    <div>
+      <button onClick={handleClickPlus}>Increase</button>
+      <button onClick={handleClickMinus}>Decrease</button>
+      <p>Value is : {count}</p>
+      <DisplayMovies number={count} />
+    </div>
+  );
+}
+
+function DisplayMovies(props) {
+  return <p>Movie i have watched: {props.number} </p>;
+}
+
+function Nayok(props) {
+  const decoration = {
+    border: "1px solid red",
+    margin: "10px auto",
+  };
+  const { artistName } = props;
+  return (
+    <div style={decoration}>
+      <h1>Ami {artistName}</h1>
+      <h3>I Have Done 5 Movies</h3>
     </div>
   );
 }
